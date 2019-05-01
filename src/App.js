@@ -14,10 +14,13 @@ class App extends Component {
   handleSubmit = (e) => {
 
     e.preventDefault()
-    axios.get(`http://api.giphy.com/v1/gifs/search?q=${this.state.text}&api_key=BZLIS5RIJLfdvLq2k1e9LuVrdkXopDY4`)
+    axios.get(`https://api.giphy.com/v1/gifs/random?api_key=BZLIS5RIJLfdvLq2k1e9LuVrdkXopDY4&tag=${this.state.text}&rating=G`)
+
       .then(res => {
 
-        this.setState({ image: res.data.data[0].url + '/fullscreen' })
+        this.setState({
+          image: res.data.data.url + "/fullscreen"
+        })
         console.log(this.state.image)
       })
       .catch(error => {
