@@ -1,26 +1,54 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { Component } from 'react';
+import axios from 'axios';
+import logo from './logo.svg'
 import './App.css';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      image: [],
+      text: ''
+    }
+  }
+
+  handleSubmit = (e) => {
+
+    e.preventDefault()
+    axios.get('http://api.giphy.com/v1/gifs/search?q=cat&api_key=BZLIS5RIJLfdvLq2k1e9LuVrdkXopDY4')
+      .then(res => {
+
+        this.setState({ image: res.data.data[0].url })
+        console.log(this.state.image)
+      })
+      .catch(error => {
+        console.log(error)
+      })
+  }
+
+  render() {
+    return (
+      <div className="App">
+        <h1>Animals</h1>
+        <form onSubmit={this.handleSubmit}>
+          <p>Type in the name of an animal from the list below</p>
+          <input
+            type="text"
+          ></input>
+          <br />
+          <input type="submit" value="Submit"></input>
+          <ul>
+            <li>Cats</li>
+            <li>Dogs</li>
+            <li>Elephants</li>
+            <li>Lions</li>
+            <li>Monkeys</li>
+          </ul>
+          <img src={this.state.images} alt="loading" />
+        </form>
+      </div>
+    );
+  }
 }
 
 export default App;
