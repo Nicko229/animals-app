@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
+import ImageLoader from 'react-load-image';
 import axios from 'axios';
-import logo from './logo.svg'
+// import ralph from 'https://sketchok.com/images/articles/01-cartoons/001-simpsons/27/11.jpg';
+
+
 import './App.css';
 
 class App extends Component {
@@ -18,7 +21,7 @@ class App extends Component {
     axios.get('http://api.giphy.com/v1/gifs/search?q=cat&api_key=BZLIS5RIJLfdvLq2k1e9LuVrdkXopDY4')
       .then(res => {
 
-        this.setState({ image: res.data.data[0].url })
+        this.setState({ image: res.data.data[0].url + '/fullscreen' })
         console.log(this.state.image)
       })
       .catch(error => {
@@ -44,9 +47,16 @@ class App extends Component {
             <li>Lions</li>
             <li>Monkeys</li>
           </ul>
-          <img src={this.state.images} alt="loading" />
+
+          {/* <ImageLoader src='https://giphy.com/gifs/leroypatterson-cat-glasses-CjmvTCZf2U3p09Cn0h' /> */}
+          <iframe
+            width="370"
+            height="350"
+            src={this.state.image} alt="loading" />
+          {/* </ImageLoader>  */}
         </form>
       </div>
+
     );
   }
 }
