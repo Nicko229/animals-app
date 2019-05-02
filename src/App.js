@@ -11,33 +11,13 @@ class App extends Component {
     }
   }
 
-  // handleSubmit = (e) => {
-
-  //   e.preventDefault()
-  //   axios.get(`https://api.giphy.com/v1/gifs/random?api_key=BZLIS5RIJLfdvLq2k1e9LuVrdkXopDY4&tag=${this.state.text}&rating=G`)
-
-  //     .then(res => {
-
-  //       this.setState({
-  //         image: res.data.data.url + "/fullscreen"
-  //       })
-  //       console.log(this.state.image)
-  //     })
-  //     .catch(error => {
-  //       console.log(error)
-  //     })
-  // }
-
   handleSubmit = (e) => {
     e.preventDefault()
-    // this.setState({ text: e.target.value })
     axios.get(`https://api.giphy.com/v1/gifs/random?api_key=BZLIS5RIJLfdvLq2k1e9LuVrdkXopDY4&tag=${this.state.text}&rating=G`)
-
       .then(res => {
-
         this.setState({
-          image: res.data.data.url + "/fullscreen",
-
+          image: res.data.data.url
+            + "/fullscreen"
         })
         console.log(this.state.image)
       })
@@ -46,32 +26,6 @@ class App extends Component {
       })
     console.log("handleClick: ", this.state.text)
   }
-
-  // handleChange = (e) => {
-  //   e.preventDefault()
-  //   this.setState({
-  //     text: e.target.value
-  //   })
-  // }
-
-  // handleClick = (e) => {
-  //   e.preventDefault()
-  //   this.setState({ text: e.target.value })
-  //   axios.get(`https://api.giphy.com/v1/gifs/random?api_key=BZLIS5RIJLfdvLq2k1e9LuVrdkXopDY4&tag=${this.state.text}&rating=G`)
-
-  //     .then(res => {
-
-  //       this.setState({
-  //         image: res.data.data.url + "/fullscreen",
-
-  //       })
-  //       console.log(this.state.image)
-  //     })
-  //     .catch(error => {
-  //       console.log(error)
-  //     })
-  //   console.log("handleClick: ", this.state.text)
-  // }
 
   handleClick = (e) => {
     this.setState({ text: e.target.value })
@@ -82,26 +36,25 @@ class App extends Component {
       <div className="App">
         <h1>Animals</h1>
         <form method="post" onSubmit={this.handleSubmit}>
-          <p>Type in the name of an animal from the list below</p>
-          {/* <input
-            onChange={this.handleChange}
-            type="text"
-          ></input>
-          <br />
-          <input type="submit" value="Submit"></input> */}
 
-          <input name="action" type="submit" value="Cats" onClick={this.handleClick}>{console.log(this.state.text)}</input>
-          <input name="action" type="submit" value="Dogs" onClick={this.handleClick}></input>
-          <input name="action" type="submit" value="Elephants" onClick={this.handleClick}></input>
-          <input name="action" type="submit" value="Lions" onClick={this.handleClick}></input>
-          <input name="action" id="monkey" type="submit" value="Monkeys" onClick={this.handleClick}></input>
+          <div>
+            <p>Choose an animal that you would like to see in a GIF</p>
+            <input name="action" type="submit" value="Cats" onClick={this.handleClick}>{console.log(this.state.text)}</input>
+            <input name="action" type="submit" value="Dogs" onClick={this.handleClick}></input>
+            <input name="action" type="submit" value="Elephants" onClick={this.handleClick}></input>
+            <input name="action" type="submit" value="Lions" onClick={this.handleClick}></input>
+            <input name="action" id="monkey" type="submit" value="Monkeys" onClick={this.handleClick}></input>
+          </div>
 
+          <div className="iframe-parent">
+            <iframe
+              width="70%"
+              height="350"
+              // scrolling="no"
+              // frameborder="no"
+              src={this.state.image} alt="loading" />
+          </div>
 
-
-          <iframe
-            width="370"
-            height="350"
-            src={this.state.image} alt="loading" />
         </form>
       </div>
 
